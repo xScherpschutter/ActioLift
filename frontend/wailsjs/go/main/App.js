@@ -30,6 +30,10 @@ export function GetAllProducts() {
   return window['go']['main']['App']['GetAllProducts']();
 }
 
+export function GetAllSales() {
+  return window['go']['main']['App']['GetAllSales']();
+}
+
 export function GetAllSubscriptions() {
   return window['go']['main']['App']['GetAllSubscriptions']();
 }
@@ -52,6 +56,10 @@ export function SaveMembership(arg1) {
 
 export function SaveProduct(arg1) {
   return window['go']['main']['App']['SaveProduct'](arg1);
+}
+
+export function SaveSale(arg1) {
+  return window['go']['main']['App']['SaveSale'](arg1);
 }
 
 export function SaveSubscription(arg1) {

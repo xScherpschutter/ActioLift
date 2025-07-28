@@ -22,7 +22,7 @@ export default function SaleForm({ sale, onClose, onSuccess }: SaleFormProps) {
   
   const [formData, setFormData] = useState<SaleFormType>({
     client_id: sale?.client_id || 0,
-    details: [],
+    details: sale?.details || [],
   });
 
   const addProduct = () => {
@@ -75,7 +75,13 @@ export default function SaleForm({ sale, onClose, onSuccess }: SaleFormProps) {
       
       let success = false;
       if (sale) {
-        success = await update(sale.id, validatedData);
+        success = await update(sale.id, {
+          client_id: validatedData.client_id,
+          details: validatedData.details.map(detail => ({
+            ...detail,
+            sale_id: sale.id
+          }))
+        });
       } else {
         success = await create(validatedData);
       }

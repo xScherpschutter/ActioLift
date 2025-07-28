@@ -13,6 +13,7 @@ export function useSubscriptions() {
     setError(null);
     try {
       const data = await GetAllSubscriptions()
+      console.log(data);
       setSubscriptions(data);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Error al cargar suscripciones';

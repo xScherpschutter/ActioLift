@@ -21,13 +21,14 @@ export interface Product {
 export interface Sale {
   id: number;
   client_id: number;
+  client_name: string;
   date: string;
   total: number;
+  details: SalesDetail[];
 }
 
 // SalesDetail entity
 export interface SalesDetail {
-  id: number;
   sale_id: number;
   product_id: number;
   quantity: number;
@@ -38,6 +39,7 @@ export interface SalesDetail {
 export interface Subscription {
   id: number;
   client_id: number;
+  client_name: string;
   membership_id: number;
   start_date: string;
   end_date: string;

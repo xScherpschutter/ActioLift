@@ -1,7 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Subscription } from '../../types';
 import { useSubscriptions } from '../../hooks/useSubscriptions';
-import { useClients } from '../../hooks/useClients';
 import { useMemberships } from '../../hooks/useMemberships';
 import { Edit, Trash2, Search, Plus, Calendar, User, CreditCard, Clock } from 'lucide-react';
 import SubscriptionForm from './SubscriptionForm';
@@ -9,7 +8,6 @@ import ConfirmationModal from '../../components/UI/ConfirmationModal';
 
 export default function SubscriptionsList() {
   const { subscriptions, loading, remove, getAll} = useSubscriptions();
-  const { clients } = useClients();
   const { memberships } = useMemberships();
   const [searchTerm, setSearchTerm] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -20,11 +18,7 @@ export default function SubscriptionsList() {
   });
   const [deleting, setDeleting] = useState(false);
 
-  const getClientName = (clientId: number) => {
-    const client = clients.find(c => c.id === clientId);
-    return client ? `${client.first_name} ${client.last_name}` : 'Cliente no encontrado';
-  };
-
+ 
   const getMembershipName = (membershipId: number) => {
     const membership = memberships.find(m => m.id === membershipId);
     return membership ? membership.name : 'Membresía no encontrada';
@@ -56,7 +50,7 @@ export default function SubscriptionsList() {
   };
 
   const filteredSubscriptions = subscriptions.filter(subscription => {
-    const clientName = getClientName(subscription.client_id).toLowerCase();
+    const clientName = subscription.client_name.toLowerCase();
     const membershipName = getMembershipName(subscription.membership_id).toLowerCase();
     const search = searchTerm.toLowerCase();
     return clientName.includes(search) || membershipName.includes(search);
@@ -150,7 +144,7 @@ export default function SubscriptionsList() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
                   <User className="w-4 h-4 text-gray-600" />
-                  <span className="text-sm font-medium text-gray-900">{getClientName(subscription.client_id)}</span>
+                  <span className="text-sm font-medium text-gray-900">{subscription.client_name}</span>
                 </div>
                 
                 <div className="flex items-center space-x-2">
@@ -162,7 +156,7 @@ export default function SubscriptionsList() {
                   <div className="flex items-center space-x-2">
                     <Clock className="w-4 h-4 text-green-600" />
                     <span className="text-sm text-gray-600">
-                      {daysRemaining >= 0 ? `${daysRemaining} días restantes` : `Vencida hace ${Math.abs(daysRemaining)} días`}
+                      {daysRemaining >= 0 ? `${daysRemaining} día/s restantes` : `Vencida hace ${Math.abs(daysRemaining)} días`}
                     </span>
                   </div>
                   {getStatusBadge(subscription.end_date)}

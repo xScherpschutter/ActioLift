@@ -182,11 +182,77 @@ export namespace get_products {
 
 }
 
+export namespace get_sales {
+	
+	export class SalesDetailResponse {
+	    sale_id: number;
+	    product_id: number;
+	    product_name: string;
+	    quantity: number;
+	    price: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new SalesDetailResponse(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.sale_id = source["sale_id"];
+	        this.product_id = source["product_id"];
+	        this.product_name = source["product_name"];
+	        this.quantity = source["quantity"];
+	        this.price = source["price"];
+	    }
+	}
+	export class SalesResponse {
+	    id: number;
+	    client_id: number;
+	    client_name: string;
+	    date: string;
+	    total: number;
+	    details: SalesDetailResponse[];
+	
+	    static createFrom(source: any = {}) {
+	        return new SalesResponse(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.client_id = source["client_id"];
+	        this.client_name = source["client_name"];
+	        this.date = source["date"];
+	        this.total = source["total"];
+	        this.details = this.convertValues(source["details"], SalesDetailResponse);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+
+}
+
 export namespace get_subscriptions {
 	
 	export class SubscriptionResponse {
 	    id: number;
 	    client_id: number;
+	    client_name: string;
 	    membership_id: number;
 	    start_date: string;
 	    end_date: string;
@@ -199,6 +265,7 @@ export namespace get_subscriptions {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
 	        this.client_id = source["client_id"];
+	        this.client_name = source["client_name"];
 	        this.membership_id = source["membership_id"];
 	        this.start_date = source["start_date"];
 	        this.end_date = source["end_date"];
@@ -274,6 +341,59 @@ export namespace save_product {
 	        this.price = source["price"];
 	        this.stock = source["stock"];
 	    }
+	}
+
+}
+
+export namespace save_sale {
+	
+	export class ProductItem {
+	    product_id: number;
+	    quantity: number;
+	    price: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new ProductItem(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.product_id = source["product_id"];
+	        this.quantity = source["quantity"];
+	        this.price = source["price"];
+	    }
+	}
+	export class SaveSaleRequest {
+	    client_id: number;
+	    details: ProductItem[];
+	
+	    static createFrom(source: any = {}) {
+	        return new SaveSaleRequest(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.client_id = source["client_id"];
+	        this.details = this.convertValues(source["details"], ProductItem);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
 
 }

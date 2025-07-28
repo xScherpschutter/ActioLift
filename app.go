@@ -9,7 +9,6 @@ import (
 	"POS/backend/features/clients/get_clients"
 	"POS/backend/features/clients/save_client"
 	"POS/backend/features/clients/update_client"
-	
 
 	"POS/backend/features/products/delete_product"
 	"POS/backend/features/products/get_products"
@@ -21,11 +20,13 @@ import (
 	"POS/backend/features/memberships/save_membership"
 	"POS/backend/features/memberships/update_membership"
 
+	"POS/backend/features/subscriptions/delete_subscription"
+	"POS/backend/features/subscriptions/get_subscriptions"
 	"POS/backend/features/subscriptions/save_subscription"
 	"POS/backend/features/subscriptions/update_subscription"
-	"POS/backend/features/subscriptions/get_subscriptions"
-	"POS/backend/features/subscriptions/delete_subscription"
-	
+
+	"POS/backend/features/sales/save_sale"
+	"POS/backend/features/sales/get_sales"
 )
 
 // App struct
@@ -119,4 +120,14 @@ func (a *App) UpdateSubscription(req update_subscription.UpdateSubscriptionReque
 
 func (a *App) DeleteSubscription(req delete_subscription.DeleteSubscriptionRequest) error {
 	return delete_subscription.NewDeleteSubscriptionHandler().Handle(req)
+}
+
+// Sale Methods
+
+func (a *App) SaveSale(req save_sale.SaveSaleRequest) error {
+	return save_sale.NewSaveSaleHandler().Handle(req)
+}
+
+func (a *App) GetAllSales() ([]get_sales.SalesResponse, error) {
+	return get_sales.NewGetSalesHandler().Handle()
 }

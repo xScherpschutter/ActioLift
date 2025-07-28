@@ -1,14 +1,12 @@
 import { useState } from 'preact/hooks';
 import { Sale } from '../../types';
 import { useSales } from '../../hooks/useSales';
-import { useClients } from '../../hooks/useClients';
 import { Edit, Trash2, Search, Plus, CreditCard, User, Calendar, DollarSign } from 'lucide-react';
 import SaleForm from './SaleForm';
 import ConfirmationModal from '../../components/UI/ConfirmationModal';
 
 export default function SalesList() {
-  const { sales, loading, remove } = useSales();
-  const { clients } = useClients();
+  const { sales, loading, remove, getAll } = useSales();
   const [searchTerm, setSearchTerm] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [editingSale, setEditingSale] = useState<Sale | undefined>();
@@ -18,13 +16,8 @@ export default function SalesList() {
   });
   const [deleting, setDeleting] = useState(false);
 
-  const getClientName = (clientId: number) => {
-    const client = clients.find(c => c.id === clientId);
-    return client ? `${client.first_name} ${client.last_name}` : 'Cliente no encontrado';
-  };
-
   const filteredSales = sales.filter(sale => {
-    const clientName = getClientName(sale.client_id).toLowerCase();
+    const clientName = sale.client_name.toLowerCase();
     const search = searchTerm.toLowerCase();
     return clientName.includes(search) || sale.id.toString().includes(search);
   });
@@ -47,6 +40,7 @@ export default function SalesList() {
     
     if (success) {
       setDeleteModal({ isOpen: false, sale: null });
+      await getAll();
     }
   };
 
@@ -117,7 +111,7 @@ export default function SalesList() {
               
               <div className="flex items-center space-x-2">
                 <User className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-medium text-gray-900">{getClientName(sale.client_id)}</span>
+                <span className="text-sm font-medium text-gray-900">{sale.client_name}</span>
               </div>
               
               <div className="flex items-center space-x-2">
@@ -150,7 +144,9 @@ export default function SalesList() {
         <SaleForm
           sale={editingSale}
           onClose={handleCloseForm}
-          onSuccess={() => {}}
+          onSuccess={async () => {
+            await getAll();
+          }}
         />
       )}
 

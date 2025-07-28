@@ -7,11 +7,13 @@ import {delete_subscription} from '../models';
 import {get_clients} from '../models';
 import {get_memberships} from '../models';
 import {get_products} from '../models';
+import {get_sales} from '../models';
 import {get_subscriptions} from '../models';
 import {get_client_by_id} from '../models';
 import {save_client} from '../models';
 import {save_membership} from '../models';
 import {save_product} from '../models';
+import {save_sale} from '../models';
 import {save_subscription} from '../models';
 import {update_client} from '../models';
 import {update_membership} from '../models';
@@ -32,6 +34,8 @@ export function GetAllMemberships():Promise<Array<get_memberships.MembershipResp
 
 export function GetAllProducts():Promise<Array<get_products.ProductResponse>>;
 
+export function GetAllSales():Promise<Array<get_sales.SalesResponse>>;
+
 export function GetAllSubscriptions():Promise<Array<get_subscriptions.SubscriptionResponse>>;
 
 export function GetClientByID(arg1:get_client_by_id.GetClientByIDQuery):Promise<get_client_by_id.ClientResponse>;
@@ -43,6 +47,8 @@ export function SaveClient(arg1:save_client.SaveClientRequest):Promise<void>;
 export function SaveMembership(arg1:save_membership.SaveMembershipRequest):Promise<void>;
 
 export function SaveProduct(arg1:save_product.SaveProductRequest):Promise<void>;
+
+export function SaveSale(arg1:save_sale.SaveSaleRequest):Promise<void>;
 
 export function SaveSubscription(arg1:save_subscription.SaveSubscriptionRequest):Promise<void>;
 
