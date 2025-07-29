@@ -25,8 +25,9 @@ import (
 	"POS/backend/features/subscriptions/save_subscription"
 	"POS/backend/features/subscriptions/update_subscription"
 
-	"POS/backend/features/sales/save_sale"
+	"POS/backend/features/sales/delete_sale"
 	"POS/backend/features/sales/get_sales"
+	"POS/backend/features/sales/save_sale"
 )
 
 // App struct
@@ -130,4 +131,8 @@ func (a *App) SaveSale(req save_sale.SaveSaleRequest) error {
 
 func (a *App) GetAllSales() ([]get_sales.SalesResponse, error) {
 	return get_sales.NewGetSalesHandler().Handle()
+}
+
+func (a *App) DeleteSale(req delete_sale.DeleteSaleRequest) error {
+	return delete_sale.NewDeleteSaleHandler().Handle(req)
 }

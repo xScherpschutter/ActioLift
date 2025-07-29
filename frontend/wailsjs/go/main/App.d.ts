@@ -3,6 +3,7 @@
 import {delete_client} from '../models';
 import {delete_membership} from '../models';
 import {delete_product} from '../models';
+import {delete_sale} from '../models';
 import {delete_subscription} from '../models';
 import {get_clients} from '../models';
 import {get_memberships} from '../models';
@@ -25,6 +26,8 @@ export function DeleteClient(arg1:delete_client.DeleteClientRequest):Promise<voi
 export function DeleteMembership(arg1:delete_membership.DeleteMembershipRequest):Promise<void>;
 
 export function DeleteProduct(arg1:delete_product.DeleteProductRequest):Promise<void>;
+
+export function DeleteSale(arg1:delete_sale.DeleteSaleRequest):Promise<void>;
 
 export function DeleteSubscription(arg1:delete_subscription.DeleteSubscriptionRequest):Promise<void>;
 

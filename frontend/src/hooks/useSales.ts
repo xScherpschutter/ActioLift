@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
 import { Sale, SaleForm } from '../types';
-import { mockSales } from '../lib/mockData';
 import toast from 'react-hot-toast';
-import { SaveSale, GetAllSales } from '../../wailsjs/go/main/App'
+import { SaveSale, GetAllSales, DeleteSale } from '../../wailsjs/go/main/App'
 import { save_sale } from '../../wailsjs/go/models';
 export function useSales() {
   const [sales, setSales] = useState<Sale[]>([]);
@@ -23,19 +22,6 @@ export function useSales() {
       toast.error(message);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const getById = async (id: number): Promise<Sale | null> => {
-    try {
-      // For development, use mock data
-      // const data = await api.sales.getById(id);
-      const data = mockSales.find(sale => sale.id === id);
-      return data || null;
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al cargar venta';
-      toast.error(message);
-      return null;
     }
   };
 
@@ -69,9 +55,7 @@ export function useSales() {
 
   const remove = async (id: number): Promise<boolean> => {
     try {
-      // For development, simulate API call
-      // await api.sales.remove(id);
-      setSales(prev => prev.filter(sale => sale.id !== id));
+      await DeleteSale({id: id});
       toast.success('Venta eliminada exitosamente');
       return true;
     } catch (err) {
@@ -90,7 +74,6 @@ export function useSales() {
     loading,
     error,
     getAll,
-    getById,
     create,
     update,
     remove,

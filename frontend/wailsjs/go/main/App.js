@@ -14,6 +14,10 @@ export function DeleteProduct(arg1) {
   return window['go']['main']['App']['DeleteProduct'](arg1);
 }
 
+export function DeleteSale(arg1) {
+  return window['go']['main']['App']['DeleteSale'](arg1);
+}
+
 export function DeleteSubscription(arg1) {
   return window['go']['main']['App']['DeleteSubscription'](arg1);
 }
