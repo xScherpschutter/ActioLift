@@ -1,37 +1,49 @@
 package save_sale
 
 import (
-	"POS/backend/database/models"
-	"POS/backend/database/sqlite"
 	"POS/backend/domain/services"
+	"POS/backend/features/products"
+	"strconv"
 )
 
-func SaveSale(req SaveSaleRequest) error {
-	tx := sqlite.DB.Begin()
+type SaveSaleService struct {
+    SaleRepo    SaleRepository
+    ProductRepo products.ProductRepository
+}
 
-	var saleORM models.Sale
-	saleORM.ClientID = uint(req.ClientID)
+func NewSaveSaleService(saleRepo SaleRepository, productRepo products.ProductRepository) *SaveSaleService {
+    return &SaveSaleService{
+        SaleRepo:    saleRepo,
+        ProductRepo: productRepo,
+    }
+}
 
-	if err := tx.Create(&saleORM).Error; err != nil {
-		tx.Rollback()
+func (s *SaveSaleService) Save(req SaveSaleRequest) error {
+	sale := MapSaleRequestToDomain(req)
+    details := MapDetailsRequestToDomain(req)
+    for _, detail := range details {
+        if err := s.ProductRepo.ValidateStock(strconv.FormatUint(uint64(detail.ProductID), 10), detail.Quantity); err != nil {
+            return err
+        }
+    }
+	// Calcular total
+    services.CalculateSale(sale, details)
+    // Guardar cabecera de venta
+    saleID, err := s.SaleRepo.SaveSale(sale)
+    if err != nil {
+        return err
+    }
+	// Guardar detalles de la venta
+	detailsModel := MapDetailsToModel(saleID, details)
+	err = s.SaleRepo.SaveSaleDetails(detailsModel)
+	if err != nil {
 		return err
 	}
-
-	domainSale := MapSaleRequestToDomain(req)
-	detailsSale := MapDetailsRequestToDomain(req)
-	services.CalculateSale(domainSale, detailsSale)
-	saleORM.Total = domainSale.Total
-
-	if err := tx.Save(&saleORM).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-
-	detailsORM := MapDetailsToModel(saleORM.ID, req.Details)
-	if err := tx.Create(&detailsORM).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-
-	return tx.Commit().Error
+    // Reducir stock
+    for _, detail := range details {
+        if err := s.ProductRepo.DecreaseStock(strconv.FormatUint(uint64(detail.ProductID), 10), detail.Quantity); err != nil {
+            return err
+        }
+    }
+    return nil
 }

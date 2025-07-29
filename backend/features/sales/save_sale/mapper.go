@@ -24,14 +24,14 @@ func MapDetailsRequestToDomain(req SaveSaleRequest) []domain.SalesDetail {
 	return domainDetails
 }
 
-func MapDetailsToModel(sale_id uint, details []ProductItem) []models.SalesDetail {
+func MapDetailsToModel(sale_id uint, details []domain.SalesDetail) []models.SalesDetail {
 	var modelDetails []models.SalesDetail
 	for _, detail := range details {
 		modelDetails = append(modelDetails, models.SalesDetail{
 			SaleID:    sale_id,
-			ProductID: uint(detail.ProductID),
-			Quantity:  int(detail.Quantity),
-			Price:     float64(detail.Price),
+			ProductID: detail.ProductID,
+			Quantity:  detail.Quantity,
+			Price:     detail.Price,
 		})
 	}
 	return modelDetails
