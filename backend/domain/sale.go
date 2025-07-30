@@ -1,6 +1,7 @@
 package domain
 
 type Sale struct {
-	ClientID uint
-	Total    float64
+	ID        uint
+	ClientID  uint
+	Total     float64
 }

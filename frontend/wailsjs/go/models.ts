@@ -202,6 +202,7 @@ export namespace get_products {
 export namespace get_sales {
 	
 	export class SalesDetailResponse {
+	    id: number;
 	    sale_id: number;
 	    product_id: number;
 	    product_name: string;
@@ -214,6 +215,7 @@ export namespace get_sales {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
 	        this.sale_id = source["sale_id"];
 	        this.product_id = source["product_id"];
 	        this.product_name = source["product_name"];
@@ -511,6 +513,63 @@ export namespace update_product {
 	        this.price = source["price"];
 	        this.stock = source["stock"];
 	    }
+	}
+
+}
+
+export namespace update_sale {
+	
+	export class ProductItem {
+	    id?: number;
+	    product_id: number;
+	    quantity: number;
+	    price: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new ProductItem(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.product_id = source["product_id"];
+	        this.quantity = source["quantity"];
+	        this.price = source["price"];
+	    }
+	}
+	export class UpdateSaleRequest {
+	    id: number;
+	    client_id: number;
+	    details: ProductItem[];
+	
+	    static createFrom(source: any = {}) {
+	        return new UpdateSaleRequest(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.client_id = source["client_id"];
+	        this.details = this.convertValues(source["details"], ProductItem);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
 
 }

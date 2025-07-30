@@ -26,7 +26,7 @@ func GetSales() ([]SalesResponse, error) {
 	// Obtener detalles y agruparlos en un map // diccionario
 	var salesDetails []SalesDetailResponse
 	result = sqlite.DB.Model(&models.SalesDetail{}).
-		Select(`sales_details.sale_id, sales_details.product_id, sales_details.quantity,
+		Select(`sales_details.id, sales_details.sale_id, sales_details.product_id, sales_details.quantity,
 		products.name as product_name, sales_details.price`).
 		Joins(`join products on products.id = sales_details.product_id`).
 		Scan(&salesDetails)

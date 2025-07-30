@@ -7,15 +7,15 @@ import (
 )
 
 type SaleRepository struct {
-    db *gorm.DB
+	db *gorm.DB
 }
 
 func NewSaleRepository(db *gorm.DB) *SaleRepository {
-    return &SaleRepository{db: db}
+	return &SaleRepository{db: db}
 }
 
 func (r *SaleRepository) SaveSale(sale *domain.Sale) (uint, error) {
-    tx := r.db.Begin()
+	tx := r.db.Begin()
 
 	var saleORM models.Sale
 	saleORM.ClientID = uint(sale.ClientID)
@@ -35,12 +35,75 @@ func (r *SaleRepository) SaveSale(sale *domain.Sale) (uint, error) {
 }
 
 func (r *SaleRepository) SaveSaleDetails(details []models.SalesDetail) error {
-    tx := r.db.Begin()
+	tx := r.db.Begin()
 
-    if err := tx.Create(details).Error; err != nil {
-        tx.Rollback()
-        return err
-    }
+	if err := tx.Create(details).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
 
-    return tx.Commit().Error
+	return tx.Commit().Error
+}
+
+func (r *SaleRepository) UpdateSale(sale *models.Sale) error {
+	tx := r.db.Begin()
+
+	if err := tx.Save(sale).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
+}
+
+func (r *SaleRepository) UpdateSaleFromRequest(saleID uint, clientID uint) error {
+	tx := r.db.Begin()
+
+	if err := tx.Model(&models.Sale{}).Where("id = ?", saleID).Update("client_id", clientID).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
+}
+
+func (r *SaleRepository) UpdateSaleDetail(detail *models.SalesDetail) error {
+	tx := r.db.Begin()
+
+	if err := tx.Save(detail).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
+}
+
+func (r *SaleRepository) UpdateSaleDetails(details []models.SalesDetail) error {
+	tx := r.db.Begin()
+
+	if err := tx.Create(details).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
+}
+
+func (r *SaleRepository) GetSaleDetails(saleID uint) ([]models.SalesDetail, error) {
+	var details []models.SalesDetail
+	if err := r.db.Where("sale_id = ?", saleID).Find(&details).Error; err != nil {
+		return nil, err
+	}
+	return details, nil
+}
+
+func (r *SaleRepository) DeleteSaleDetails(saleID uint) error {
+	tx := r.db.Begin()
+
+	if err := tx.Where("sale_id = ?", saleID).Delete(&models.SalesDetail{}).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit().Error
 }

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'preact/hooks';
 import { Sale, SaleForm } from '../types';
 import toast from 'react-hot-toast';
-import { SaveSale, GetAllSales, DeleteSale } from '../../wailsjs/go/main/App'
-import { save_sale } from '../../wailsjs/go/models';
+import { SaveSale, GetAllSales, DeleteSale, UpdateSale } from '../../wailsjs/go/main/App'
+import { save_sale, update_sale } from '../../wailsjs/go/models';
 export function useSales() {
   const [sales, setSales] = useState<Sale[]>([]);
   const [loading, setLoading] = useState(false);
@@ -39,11 +39,12 @@ export function useSales() {
 
   const update = async (id: number, saleData: Partial<Sale>): Promise<boolean> => {
     try {
-      setSales(prev => prev.map(sale => 
-        sale.id === id 
-          ? { ...sale, ...saleData }
-          : sale
-      ));
+      const updateData = new update_sale.UpdateSaleRequest();
+      updateData.id = id;
+      updateData.client_id = saleData.client_id!;
+      updateData.details = saleData.details!;
+      
+      await UpdateSale(updateData as update_sale.UpdateSaleRequest);
       toast.success('Venta actualizada exitosamente');
       return true;
     } catch (err) {

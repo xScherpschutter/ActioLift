@@ -11,4 +11,3 @@ func CalculateSale(head *domain.Sale, details []domain.SalesDetail) {
 	}
 	head.Total = total
 }
-

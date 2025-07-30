@@ -19,6 +19,7 @@ import {save_subscription} from '../models';
 import {update_client} from '../models';
 import {update_membership} from '../models';
 import {update_product} from '../models';
+import {update_sale} from '../models';
 import {update_subscription} from '../models';
 
 export function DeleteClient(arg1:delete_client.DeleteClientRequest):Promise<void>;
@@ -60,5 +61,7 @@ export function UpdateClient(arg1:update_client.UpdateClientRequest):Promise<voi
 export function UpdateMembership(arg1:update_membership.UpdateMembershipRequest):Promise<void>;
 
 export function UpdateProduct(arg1:update_product.UpdateProductRequest):Promise<void>;
+
+export function UpdateSale(arg1:update_sale.UpdateSaleRequest):Promise<void>;
 
 export function UpdateSubscription(arg1:update_subscription.UpdateSubscriptionRequest):Promise<void>;

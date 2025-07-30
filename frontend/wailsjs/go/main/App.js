@@ -82,6 +82,10 @@ export function UpdateProduct(arg1) {
   return window['go']['main']['App']['UpdateProduct'](arg1);
 }
 
+export function UpdateSale(arg1) {
+  return window['go']['main']['App']['UpdateSale'](arg1);
+}
+
 export function UpdateSubscription(arg1) {
   return window['go']['main']['App']['UpdateSubscription'](arg1);
 }

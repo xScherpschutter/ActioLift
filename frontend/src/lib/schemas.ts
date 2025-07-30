@@ -20,6 +20,7 @@ export const productSchema = z.object({
 export const saleSchema = z.object({
   client_id: z.number().min(1, 'Debe seleccionar un cliente'),
   details: z.array(z.object({
+    id: z.number().optional(),
     product_id: z.number().min(1, 'Debe seleccionar un producto'),
     quantity: z.number().int().min(1, 'La cantidad debe ser mayor a 0'),
     price: z.number().min(0.01, 'El precio debe ser mayor a 0'),

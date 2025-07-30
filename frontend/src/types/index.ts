@@ -29,6 +29,7 @@ export interface Sale {
 
 // SalesDetail entity
 export interface SalesDetail {
+  id?: number;
   sale_id: number;
   product_id: number;
   quantity: number;
@@ -96,11 +97,13 @@ export interface ProductForm {
 }
 
 export interface SaleForm {
+  id?: number;
   client_id: number;
   details: SalesDetailForm[];
 }
 
 export interface SalesDetailForm {
+  id?: number;
   product_id: number;
   quantity: number;
   price: number;

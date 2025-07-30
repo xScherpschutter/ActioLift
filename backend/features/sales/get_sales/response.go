@@ -10,6 +10,7 @@ type SalesResponse struct {
 }
 
 type SalesDetailResponse struct {
+	ID         uint   `json:"id"`
 	SaleID     uint    `json:"sale_id"`
 	ProductID  uint    `json:"product_id"`
 	ProductName string  `json:"product_name"`

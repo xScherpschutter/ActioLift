@@ -28,6 +28,7 @@ import (
 	"POS/backend/features/sales/delete_sale"
 	"POS/backend/features/sales/get_sales"
 	"POS/backend/features/sales/save_sale"
+	"POS/backend/features/sales/update_sale"
 )
 
 // App struct
@@ -135,4 +136,8 @@ func (a *App) GetAllSales() ([]get_sales.SalesResponse, error) {
 
 func (a *App) DeleteSale(req delete_sale.DeleteSaleRequest) error {
 	return delete_sale.NewDeleteSaleHandler().Handle(req)
+}
+
+func (a *App) UpdateSale(req update_sale.UpdateSaleRequest) error {
+	return update_sale.NewUpdateSaleHandler().Handle(req)
 }
