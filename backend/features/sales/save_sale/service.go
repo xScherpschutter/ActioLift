@@ -1,8 +1,10 @@
 package save_sale
 
 import (
+	"POS/backend/database/models"
 	"POS/backend/domain/services"
 	"POS/backend/features/products"
+	"POS/backend/infrastructure"
 	"strconv"
 )
 
@@ -45,5 +47,13 @@ func (s *SaveSaleService) Save(req SaveSaleRequest) error {
             return err
         }
     }
+
+    infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
+        Entity:    "Sale",
+        EntityID:  saleID,
+        Action:    "Create",
+        Summary:   "Venta #" + strconv.FormatUint(uint64(saleID), 10) + " guardada",
+    })
+
     return nil
 }

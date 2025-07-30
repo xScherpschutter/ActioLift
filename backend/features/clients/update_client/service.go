@@ -1,10 +1,12 @@
 package update_client
 
 import (
-	"errors"
+	"POS/backend/database/models"
 	"POS/backend/database/sqlite"
 	"POS/backend/domain"
-	"POS/backend/database/models"
+	"POS/backend/infrastructure"
+	"errors"
+	"strconv"
 )
 
 func UpdateClient(req UpdateClientRequest) error {
@@ -24,7 +26,6 @@ func UpdateClient(req UpdateClientRequest) error {
 		Email:            req.Email,
 		Phone:            req.Phone,
 		DNI:              req.DNI,
-		RegistrationDate: req.RegistrationDate,
 	}
 
 	if err := client.Validate(); err != nil {
@@ -36,8 +37,15 @@ func UpdateClient(req UpdateClientRequest) error {
 	ormClient.Email = client.Email
 	ormClient.Phone = client.Phone
 	ormClient.DNI = client.DNI
-	ormClient.RegistrationDate = client.RegistrationDate
 
 	saveResult := db.Save(&ormClient)
+
+	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
+		Entity:   "Client",
+		EntityID: ormClient.ID,
+		Action:   "Update",
+		Summary:  "Cliente " + ormClient.FirstName + " " + ormClient.LastName + " (#" + strconv.FormatUint(uint64(ormClient.ID), 10) + ") actualizado",
+	})
+
 	return saveResult.Error
 }

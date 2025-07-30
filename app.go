@@ -9,6 +9,8 @@ import (
 	"POS/backend/features/clients/get_clients"
 	"POS/backend/features/clients/save_client"
 	"POS/backend/features/clients/update_client"
+	"POS/backend/features/dashboard/get_activities"
+	"POS/backend/features/dashboard/get_dashboard"
 
 	"POS/backend/features/products/delete_product"
 	"POS/backend/features/products/get_products"
@@ -140,4 +142,16 @@ func (a *App) DeleteSale(req delete_sale.DeleteSaleRequest) error {
 
 func (a *App) UpdateSale(req update_sale.UpdateSaleRequest) error {
 	return update_sale.NewUpdateSaleHandler().Handle(req)
+}
+
+// Dashboard
+
+func (a *App) GetDashboard() (*get_dashboard.DashboardResponse, error) {
+	return get_dashboard.NewGetDashboardHandler().Handle()
+}
+
+// Activities
+
+func (a *App) GetActivities() ([]get_activities.ActivityResponse, error) {
+	return get_activities.NewGetActivitiesHandler().Handle()
 }

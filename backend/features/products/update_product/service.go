@@ -1,9 +1,10 @@
 package update_product
 
 import (
-	"errors"
-	"POS/backend/database/sqlite"
 	"POS/backend/database/models"
+	"POS/backend/database/sqlite"
+	"POS/backend/infrastructure"
+	"errors"
 )
 
 func UpdateProduct(req UpdateProductRequest) error {
@@ -19,5 +20,13 @@ func UpdateProduct(req UpdateProductRequest) error {
 	ormProduct.Stock = req.Stock
 
 	savedResult := sqlite.DB.Save(&ormProduct)
+
+	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
+		Entity:   "Product",
+		EntityID: ormProduct.ID,
+		Action:   "Update",
+		Summary:  "Producto " + ormProduct.Name + " actualizado",
+	})
+
 	return savedResult.Error
 }

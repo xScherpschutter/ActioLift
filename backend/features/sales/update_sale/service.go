@@ -5,6 +5,7 @@ import (
 	"POS/backend/domain"
 	"POS/backend/domain/services"
 	"POS/backend/features/products"
+	"POS/backend/infrastructure"
 	"fmt"
 	"strconv"
 )
@@ -107,6 +108,13 @@ func (s *UpdateSaleService) UpdateSale(req UpdateSaleRequest) error {
 	if err := s.SaleRepo.UpdateSaleDetails(newDetails); err != nil {
 		return fmt.Errorf("error al guardar detalles: %w", err)
 	}
+
+    infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
+        Entity:    "Sale",
+        EntityID:  req.ID,
+        Action:    "Update",
+        Summary:   "Venta #" + strconv.FormatUint(uint64(req.ID), 10) + " actualizada",
+    })
 
 	return nil
 }

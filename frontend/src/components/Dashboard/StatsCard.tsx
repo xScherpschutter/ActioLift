@@ -5,40 +5,28 @@ interface StatsCardProps {
   value: string | number;
   icon: typeof LucideIcon;
   color: 'blue' | 'green' | 'purple' | 'orange' | 'red';
-  trend?: {
-    value: number;
-    isPositive: boolean;
-  };
 }
 
 const colorClasses = {
-  blue: 'bg-blue-500',
-  green: 'bg-green-500',
-  purple: 'bg-purple-500',
-  orange: 'bg-orange-500',
-  red: 'bg-red-500',
+  blue: 'bg-blue-100 text-blue-600 ring-blue-200',
+  green: 'bg-green-100 text-green-600 ring-green-200',
+  purple: 'bg-purple-100 text-purple-600 ring-purple-200',
+  orange: 'bg-orange-100 text-orange-600 ring-orange-200',
+  red: 'bg-red-100 text-red-600 ring-red-200',
 };
 
-export default function StatsCard({ title, value, icon: Icon, color, trend }: StatsCardProps) {
+export default function StatsCard({ title, value, icon: Icon, color }: StatsCardProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
-          <p className="text-3xl font-bold text-gray-900">{value}</p>
-          {trend && (
-            <div className="flex items-center mt-2">
-              <span className={`text-sm font-medium ${
-                trend.isPositive ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {trend.isPositive ? '+' : ''}{trend.value}%
-              </span>
-              <span className="text-sm text-gray-500 ml-1">vs mes anterior</span>
-            </div>
-          )}
+    <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow">
+      <div className="flex items-center gap-4">
+        <div
+          className={`w-14 h-14 rounded-xl flex items-center justify-center ring-2 ${colorClasses[color]} bg-opacity-30`}
+        >
+          <Icon className="w-6 h-6" />
         </div>
-        <div className={`w-12 h-12 ${colorClasses[color]} rounded-lg flex items-center justify-center`}>
-          <Icon className="w-6 h-6 text-white" />
+        <div className="flex flex-col justify-center">
+          <p className="text-sm font-medium text-gray-500">{title}</p>
+          <p className="text-xl font-semibold text-gray-800">{value}</p>
         </div>
       </div>
     </div>

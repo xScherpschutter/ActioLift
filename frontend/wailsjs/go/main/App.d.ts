@@ -5,12 +5,14 @@ import {delete_membership} from '../models';
 import {delete_product} from '../models';
 import {delete_sale} from '../models';
 import {delete_subscription} from '../models';
+import {get_activities} from '../models';
 import {get_clients} from '../models';
 import {get_memberships} from '../models';
 import {get_products} from '../models';
 import {get_sales} from '../models';
 import {get_subscriptions} from '../models';
 import {get_client_by_id} from '../models';
+import {get_dashboard} from '../models';
 import {save_client} from '../models';
 import {save_membership} from '../models';
 import {save_product} from '../models';
@@ -32,6 +34,8 @@ export function DeleteSale(arg1:delete_sale.DeleteSaleRequest):Promise<void>;
 
 export function DeleteSubscription(arg1:delete_subscription.DeleteSubscriptionRequest):Promise<void>;
 
+export function GetActivities():Promise<Array<get_activities.ActivityResponse>>;
+
 export function GetAllClients():Promise<Array<get_clients.ClientResponse>>;
 
 export function GetAllMemberships():Promise<Array<get_memberships.MembershipResponse>>;
@@ -43,6 +47,8 @@ export function GetAllSales():Promise<Array<get_sales.SalesResponse>>;
 export function GetAllSubscriptions():Promise<Array<get_subscriptions.SubscriptionResponse>>;
 
 export function GetClientByID(arg1:get_client_by_id.GetClientByIDQuery):Promise<get_client_by_id.ClientResponse>;
+
+export function GetDashboard():Promise<get_dashboard.DashboardResponse>;
 
 export function Greet(arg1:string):Promise<string>;
 

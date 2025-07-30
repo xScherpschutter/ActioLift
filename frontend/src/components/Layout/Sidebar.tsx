@@ -1,4 +1,4 @@
-import { Users, Package, CreditCard, Calendar, UserCheck, BarChart3, Dumbbell, Menu, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Users, Package, CreditCard, Calendar, BarChart3, Dumbbell, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'preact/hooks';
 
 interface SidebarProps {
@@ -13,7 +13,7 @@ const menuItems = [
   { id: 'memberships', label: 'Membresías', icon: Dumbbell },
   { id: 'subscriptions', label: 'Suscripciones', icon: Calendar },
   { id: 'sales', label: 'Ventas', icon: CreditCard },
-  { id: 'attendance', label: 'Asistencias', icon: UserCheck },
+  //{ id: 'attendance', label: 'Asistencias', icon: UserCheck },
 ];
 
 export default function Sidebar({ activeSection, onSectionChange }: SidebarProps) {

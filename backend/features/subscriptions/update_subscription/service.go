@@ -4,7 +4,9 @@ import (
 	"POS/backend/database/models"
 	"POS/backend/database/sqlite"
 	"POS/backend/domain"
+	"POS/backend/infrastructure"
 	"errors"
+	"strconv"
 )
 
 func UpdateSubscription(req UpdateSubscriptionRequest) error {
@@ -32,7 +34,14 @@ func UpdateSubscription(req UpdateSubscriptionRequest) error {
 	ormSubscription.ClientID = subscription.ClientID
 	ormSubscription.StartDate = subscription.StartDate
 	ormSubscription.EndDate = subscription.EndDate
-
 	saveResult := sqlite.DB.Save(&ormSubscription)
+
+	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
+		Entity:    "Subscription",
+		EntityID:  ormSubscription.ID,
+		Action:    "Update",
+		Summary:   "Suscripción #" + strconv.FormatUint(uint64(ormSubscription.ID), 10) + " actualizada",
+	})
+
 	return saveResult.Error
 }

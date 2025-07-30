@@ -7,5 +7,4 @@ type UpdateClientRequest struct {
 	Email            string    `json:"email"`
 	Phone            string    `json:"phone"`
 	DNI              string    `json:"dni"`
-	RegistrationDate string     `json:"registration_date"`
 }

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
 import { Attendance, AttendanceForm } from '../types';
-import { api } from '../lib/api';
 import { mockAttendance } from '../lib/mockData';
 import toast from 'react-hot-toast';
 

@@ -1,8 +1,11 @@
 package save_subscription
 
 import (
+	"POS/backend/database/models"
 	"POS/backend/database/sqlite"
 	"POS/backend/domain"
+	"POS/backend/infrastructure"
+	"strconv"
 )
 
 func SaveSubscription(req SaveSubscriptionRequest) error {
@@ -21,5 +24,13 @@ func SaveSubscription(req SaveSubscriptionRequest) error {
 
 	ormSubscription := MapSaveSubscriptionRequestToModel(req)
 	result := sqlite.DB.Create(&ormSubscription)
+
+	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
+		Entity:    "Subscription",
+		EntityID:  ormSubscription.ID,
+		Action:    "Create",
+		Summary:   "Suscripción #" + strconv.FormatUint(uint64(ormSubscription.ID), 10) + " creada",
+	})
+
 	return result.Error
 }

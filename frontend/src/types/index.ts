@@ -67,9 +67,22 @@ export interface Attendance {
 export interface DashboardStats {
   total_clients: number;
   active_subscriptions: number;
-  today_sales: number;
+  total_sales: number;
   total_revenue: number;
-  today_attendance: number;
+  total_products: number;
+  new_clients: number;
+  sold_products: number;
+  sold_memberships: number;
+  average_sale: number;
+}
+
+export interface Activity {
+  id: number;
+	entity: string;
+	entity_id: number;
+	action: string;
+	summary: string;
+  created_at: string;
 }
 
 // Form types
@@ -87,7 +100,6 @@ export interface UpdateClientForm {
   dni: string;
   email: string;
   phone: string;
-  registration_date: string;
 }
 
 export interface ProductForm {

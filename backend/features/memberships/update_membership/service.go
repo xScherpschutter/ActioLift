@@ -3,6 +3,7 @@ package update_membership
 import (
 	"POS/backend/database/models"
 	"POS/backend/database/sqlite"
+	"POS/backend/infrastructure"
 	"errors"
 )
 
@@ -17,7 +18,14 @@ func UpdateMembership (req UpdateMembershipRequest) error {
 	ormMembership.Description = req.Description
 	ormMembership.Price = req.Price
 	ormMembership.Duration = req.Duration
-
 	saveResult:= sqlite.DB.Save(&ormMembership)
+
+	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
+		Entity:   "Membership",
+		EntityID: ormMembership.ID,
+		Action:   "Update",
+		Summary:  "Membresía '" + ormMembership.Name + "' actualizada",
+	})
+
 	return saveResult.Error
 }

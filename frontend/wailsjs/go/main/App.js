@@ -22,6 +22,10 @@ export function DeleteSubscription(arg1) {
   return window['go']['main']['App']['DeleteSubscription'](arg1);
 }
 
+export function GetActivities() {
+  return window['go']['main']['App']['GetActivities']();
+}
+
 export function GetAllClients() {
   return window['go']['main']['App']['GetAllClients']();
 }
@@ -44,6 +48,10 @@ export function GetAllSubscriptions() {
 
 export function GetClientByID(arg1) {
   return window['go']['main']['App']['GetClientByID'](arg1);
+}
+
+export function GetDashboard() {
+  return window['go']['main']['App']['GetDashboard']();
 }
 
 export function Greet(arg1) {

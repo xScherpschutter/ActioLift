@@ -83,6 +83,33 @@ export namespace delete_subscription {
 
 }
 
+export namespace get_activities {
+	
+	export class ActivityResponse {
+	    id: number;
+	    entity: string;
+	    entity_id: number;
+	    action: string;
+	    summary: string;
+	    created_at: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ActivityResponse(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.entity = source["entity"];
+	        this.entity_id = source["entity_id"];
+	        this.action = source["action"];
+	        this.summary = source["summary"];
+	        this.created_at = source["created_at"];
+	    }
+	}
+
+}
+
 export namespace get_client_by_id {
 	
 	export class ClientResponse {
@@ -146,6 +173,39 @@ export namespace get_clients {
 	        this.phone = source["phone"];
 	        this.dni = source["dni"];
 	        this.registration_date = source["registration_date"];
+	    }
+	}
+
+}
+
+export namespace get_dashboard {
+	
+	export class DashboardResponse {
+	    total_clients: number;
+	    active_subscriptions: number;
+	    total_sales: number;
+	    total_revenue: number;
+	    total_products: number;
+	    new_clients: number;
+	    sold_products: number;
+	    sold_memberships: number;
+	    average_sale: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new DashboardResponse(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.total_clients = source["total_clients"];
+	        this.active_subscriptions = source["active_subscriptions"];
+	        this.total_sales = source["total_sales"];
+	        this.total_revenue = source["total_revenue"];
+	        this.total_products = source["total_products"];
+	        this.new_clients = source["new_clients"];
+	        this.sold_products = source["sold_products"];
+	        this.sold_memberships = source["sold_memberships"];
+	        this.average_sale = source["average_sale"];
 	    }
 	}
 
@@ -449,7 +509,6 @@ export namespace update_client {
 	    email: string;
 	    phone: string;
 	    dni: string;
-	    registration_date: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new UpdateClientRequest(source);
@@ -463,7 +522,6 @@ export namespace update_client {
 	        this.email = source["email"];
 	        this.phone = source["phone"];
 	        this.dni = source["dni"];
-	        this.registration_date = source["registration_date"];
 	    }
 	}
 

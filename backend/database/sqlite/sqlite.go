@@ -36,5 +36,6 @@ func autoMigrate() error {
 		&models.Membership{},
 		&models.Subscription{},
 		&models.Attendance{},
+		&models.ActivityLog{},
 	)
 }
