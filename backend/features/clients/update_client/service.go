@@ -34,9 +34,9 @@ func UpdateClient(req UpdateClientRequest) error {
 
 	ormClient.FirstName = client.FirstName
 	ormClient.LastName = client.LastName
-	ormClient.Email = client.Email
-	ormClient.Phone = client.Phone
-	ormClient.DNI = client.DNI
+	if client.Email != "" { ormClient.Email = client.Email }
+	if client.Phone != "" { ormClient.Phone = client.Phone }
+	if client.DNI != "" { ormClient.DNI = client.DNI }
 
 	saveResult := db.Save(&ormClient)
 

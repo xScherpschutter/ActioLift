@@ -4,9 +4,9 @@ import { z } from 'zod';
 export const clientSchema = z.object({
   first_name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
   last_name: z.string().min(2, 'El apellido debe tener al menos 2 caracteres'),
-  dni: z.string().min(8, 'El DNI debe tener al menos 8 caracteres'),
-  email: z.string().email('Email inválido'),
-  phone: z.string().min(9, 'El teléfono debe tener al menos 9 caracteres'),
+  dni: z.string().min(8, 'El DNI debe tener al menos 8 caracteres').or(z.literal('')).optional(),
+  email: z.string().email('Email inválido').or(z.literal('')).optional(), 
+  phone: z.string().min(9, 'El teléfono debe tener al menos 9 caracteres').or(z.literal('')).optional(),
 });
 
 // Product validation schema

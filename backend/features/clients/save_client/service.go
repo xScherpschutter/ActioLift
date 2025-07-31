@@ -23,7 +23,7 @@ func SaveClient(req SaveClientRequest) error {
         return err
     }
 
-    ormClient := mapRequestToClientModel(req)
+    ormClient := MapRequestToClientModel(req)
 
     result := sqlite.DB.Create(&ormClient)
 

@@ -35,7 +35,7 @@ export default function ClientForm({ client, onClose, onSuccess }: ClientFormPro
       if (client) {
         success = await update(client.id!, validatedData as UpdateClientForm);
       } else {
-        success = await create(validatedData);
+        success = await create(validatedData as ClientFormType);
       }
 
       if (success) {

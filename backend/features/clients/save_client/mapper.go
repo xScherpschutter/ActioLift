@@ -4,7 +4,7 @@ import (
     "POS/backend/database/models"
 )
 
-func mapRequestToClientModel(req SaveClientRequest) models.Client {
+func MapRequestToClientModel(req SaveClientRequest) models.Client {
     return models.Client{
         FirstName:        req.FirstName,
         LastName:         req.LastName,

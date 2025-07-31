@@ -358,9 +358,9 @@ export namespace save_client {
 	export class SaveClientRequest {
 	    first_name: string;
 	    last_name: string;
-	    email: string;
-	    phone: string;
-	    dni: string;
+	    email?: string;
+	    phone?: string;
+	    dni?: string;
 	    registration_date: string;
 	
 	    static createFrom(source: any = {}) {
@@ -506,9 +506,9 @@ export namespace update_client {
 	    id: number;
 	    first_name: string;
 	    last_name: string;
-	    email: string;
-	    phone: string;
-	    dni: string;
+	    email?: string;
+	    phone?: string;
+	    dni?: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new UpdateClientRequest(source);
