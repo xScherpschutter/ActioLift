@@ -33,7 +33,7 @@ export default function SubscriptionsList() {
   };
 
   const formatDate = (dateString: string) => {
-      const [month, year, day] = dateString.split("-");
+      const [year, month, day] = dateString.split("-");
       return `${day}/${month}/${year}`;
     }
 
@@ -117,7 +117,6 @@ export default function SubscriptionsList() {
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {filteredSubscriptions.map((subscription) => {
           const daysRemaining = getDaysRemaining(subscription.end_date);
-          const membership = memberships.find(m => m.id === subscription.membership_id);
           
           return (
             <div key={subscription.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
