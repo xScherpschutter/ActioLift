@@ -4,7 +4,7 @@ import (
     "POS/backend/database/models"
 )
 
-func mapClientModelToResponse(m models.Client) ClientResponse {
+func MapClientModelToResponse(m models.Client) ClientResponse {
     return ClientResponse{
         ID:               m.ID,
         FirstName:        m.FirstName,
@@ -16,10 +16,10 @@ func mapClientModelToResponse(m models.Client) ClientResponse {
     }
 }
 
-func mapClientModelListToResponse(clients []models.Client) []ClientResponse {
+func MapClientModelListToResponse(clients []models.Client) []ClientResponse {
     responses := make([]ClientResponse, len(clients))
     for i, c := range clients {
-        responses[i] = mapClientModelToResponse(c)
+        responses[i] = MapClientModelToResponse(c)
     }
     return responses
 }

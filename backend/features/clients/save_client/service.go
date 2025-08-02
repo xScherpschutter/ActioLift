@@ -5,6 +5,7 @@ import (
 	"POS/backend/database/sqlite"
 	"POS/backend/domain"
 	"POS/backend/infrastructure"
+	"errors"
 	"strconv"
 )
 
@@ -27,6 +28,10 @@ func SaveClient(req SaveClientRequest) error {
 
     result := sqlite.DB.Create(&ormClient)
 
+    if result.Error != nil {
+        return errors.New("no se pudo guardar el cliente")
+    }
+
     infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
         Entity:   "Client",
         EntityID: ormClient.ID,
@@ -34,5 +39,5 @@ func SaveClient(req SaveClientRequest) error {
         Summary:  "Cliente " + ormClient.FirstName + " " + ormClient.LastName + " (#" + strconv.FormatUint(uint64(ormClient.ID), 10) + ") creado",
     })
     
-    return result.Error
+    return nil
 }

@@ -27,7 +27,7 @@ func Init() {
 	log.Println("Migraciones aplicadas")
 }
 
-func autoMigrate() error {
+func autoMigrate() error {	
 	return DB.AutoMigrate(
 		&models.Client{},
 		&models.Product{},
@@ -35,7 +35,6 @@ func autoMigrate() error {
 		&models.SalesDetail{},
 		&models.Membership{},
 		&models.Subscription{},
-		&models.Attendance{},
 		&models.ActivityLog{},
 	)
 }

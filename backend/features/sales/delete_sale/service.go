@@ -11,7 +11,7 @@ import (
 func DeleteSale(req DeleteSaleRequest) error {
 	result := sqlite.DB.Delete(&models.Sale{}, req.ID)
 	if result.RowsAffected == 0 {
-		return errors.New("sale not found")
+		return errors.New("no se encontró la venta")
 	}
 
 	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
@@ -21,5 +21,5 @@ func DeleteSale(req DeleteSaleRequest) error {
 		Summary:   "Venta #" + strconv.FormatUint(uint64(req.ID), 10) + " eliminada",
 	})
 
-	return result.Error
+	return nil
 }

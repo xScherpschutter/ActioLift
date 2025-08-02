@@ -13,7 +13,6 @@ const menuItems = [
   { id: 'memberships', label: 'Membresías', icon: Dumbbell },
   { id: 'subscriptions', label: 'Suscripciones', icon: Calendar },
   { id: 'sales', label: 'Ventas', icon: CreditCard },
-  //{ id: 'attendance', label: 'Asistencias', icon: UserCheck },
 ];
 
 export default function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
@@ -30,12 +29,17 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <div className="flex items-center space-x-3 opacity-100 transition-opacity duration-300">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg">
-                <Dumbbell className="w-6 h-6 text-white" />
+              {/* Icon */}
+              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                <img 
+                  src="/favicon.png" 
+                  alt="Icono ActioLift" 
+                  className="w-6 h-6 object-contain" 
+                />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">GymPOS</h1>
-                <p className="text-xs text-gray-300">Sistema de Gestión</p>
+                <h1 className="text-xl font-bold text-white">ActioLift</h1>
+                <p className="text-xs text-gray-300">Gestión de gimnasio</p>
               </div>
             </div>
           )}
@@ -70,7 +74,10 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
             return (
               <li key={item.id}>
                 <button
-                  onClick={() => onSectionChange(item.id)}
+                  onClick={() => {
+                  console.log('➡️ Cambiando sección a:', item.id);
+                  onSectionChange(item.id);
+                  }}
                   className={`w-full group relative flex items-center px-3 py-3 rounded-xl transition-all duration-200 ${
                     isActive
                       ? 'bg-blue-600 text-white shadow-lg transform scale-105'
@@ -107,7 +114,7 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
           <div className="transition-opacity duration-300 opacity-100">
             <div className="text-xs text-gray-400 space-y-1">
               <p className="font-medium">Versión 1.0.0</p>
-              <p>© 2024 GymPOS</p>
+              <p>© 2025 ActioMeta</p>
             </div>
           </div>
         ) : (

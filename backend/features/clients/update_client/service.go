@@ -16,7 +16,7 @@ func UpdateClient(req UpdateClientRequest) error {
 
 	result := db.First(&ormClient, req.ID)
 	if result.Error != nil {
-		return errors.New("client not found")
+		return errors.New("no se encontró el cliente")
 	}
 
 	client := domain.Client{
@@ -34,11 +34,15 @@ func UpdateClient(req UpdateClientRequest) error {
 
 	ormClient.FirstName = client.FirstName
 	ormClient.LastName = client.LastName
-	if client.Email != "" { ormClient.Email = client.Email }
-	if client.Phone != "" { ormClient.Phone = client.Phone }
-	if client.DNI != "" { ormClient.DNI = client.DNI }
+	if client.Email != "" { ormClient.Email = client.Email } else { ormClient.Email = "" }
+	if client.Phone != "" { ormClient.Phone = client.Phone } else { ormClient.Phone = "" }
+	if client.DNI != "" { ormClient.DNI = client.DNI } else { ormClient.DNI = "" }
 
 	saveResult := db.Save(&ormClient)
+
+	if saveResult.Error != nil {
+		return errors.New("no se pudo actualizar el cliente")
+	}
 
 	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
 		Entity:   "Client",
@@ -47,5 +51,5 @@ func UpdateClient(req UpdateClientRequest) error {
 		Summary:  "Cliente " + ormClient.FirstName + " " + ormClient.LastName + " (#" + strconv.FormatUint(uint64(ormClient.ID), 10) + ") actualizado",
 	})
 
-	return saveResult.Error
+	return nil
 }

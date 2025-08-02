@@ -8,7 +8,6 @@ import ProductsList from './features/products/ProductsList';
 import MembershipsList from './features/memberships/MembershipsList';
 import SubscriptionsList from './features/subscriptions/SubscriptionsList';
 import SalesList from './features/sales/SalesList';
-import AttendanceList from './features/attendance/AttendanceList';
 
 const sectionTitles = {
   dashboard: 'Dashboard',
@@ -16,8 +15,7 @@ const sectionTitles = {
   products: 'Productos',
   memberships: 'Membresías',
   subscriptions: 'Suscripciones',
-  sales: 'Ventas',
-  attendance: 'Asistencias',
+  sales: 'Ventas'
 };
 
 export default function App() {
@@ -37,8 +35,6 @@ export default function App() {
         return <SubscriptionsList />;
       case 'sales':
         return <SalesList />;
-      case 'attendance':
-        return <AttendanceList />;
       default:
         return <Dashboard />;
     }

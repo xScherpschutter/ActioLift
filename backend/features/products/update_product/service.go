@@ -12,7 +12,7 @@ func UpdateProduct(req UpdateProductRequest) error {
 	result := sqlite.DB.First(&ormProduct, req.ID)
 
 	if result.Error != nil {
-		return errors.New("product not found")
+		return errors.New("no se encontró el producto")
 	}
 
 	ormProduct.Name = req.Name
@@ -20,6 +20,9 @@ func UpdateProduct(req UpdateProductRequest) error {
 	ormProduct.Stock = req.Stock
 
 	savedResult := sqlite.DB.Save(&ormProduct)
+	if savedResult.Error != nil {
+		return errors.New("no se pudo actualizar el producto")
+	}
 
 	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
 		Entity:   "Product",
@@ -28,5 +31,5 @@ func UpdateProduct(req UpdateProductRequest) error {
 		Summary:  "Producto " + ormProduct.Name + " actualizado",
 	})
 
-	return savedResult.Error
+	return nil
 }

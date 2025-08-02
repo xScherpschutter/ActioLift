@@ -127,7 +127,7 @@ export default function ClientForm({ client, onClose, onSuccess }: ClientFormPro
               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                 errors.dni ? 'border-red-500' : 'border-gray-300'
               }`}
-              placeholder="Ingrese el DNI"
+              placeholder="Ingrese el DNI (Opcional)"
             />
             {errors.dni && (
               <p className="text-sm text-red-600 mt-1">{errors.dni}</p>
@@ -145,7 +145,7 @@ export default function ClientForm({ client, onClose, onSuccess }: ClientFormPro
               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               }`}
-              placeholder="Ingrese el email"
+              placeholder="Ingrese el email (Opcional)"
             />
             {errors.email && (
               <p className="text-sm text-red-600 mt-1">{errors.email}</p>
@@ -163,7 +163,7 @@ export default function ClientForm({ client, onClose, onSuccess }: ClientFormPro
               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                 errors.phone ? 'border-red-500' : 'border-gray-300'
               }`}
-              placeholder="Ingrese el teléfono"
+              placeholder="Ingrese el teléfono (Opcional)"
             />
             {errors.phone && (
               <p className="text-sm text-red-600 mt-1">{errors.phone}</p>

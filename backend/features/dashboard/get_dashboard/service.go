@@ -36,9 +36,8 @@ func GetDashboard() (*DashboardResponse, error) {
 	SELECT COALESCE(SUM(amount), 0) as total_revenue FROM (
 		SELECT total as amount FROM sales
 		UNION ALL
-		SELECT m.price as amount
-		FROM subscriptions s
-		JOIN memberships m ON s.membership_id = m.id
+		SELECT price as amount
+		FROM subscriptions
 	)
 	`
 	if err := sqlite.DB.Raw(query).

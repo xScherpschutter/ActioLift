@@ -2,7 +2,7 @@ import { useState } from 'preact/hooks';
 import { Subscription } from '../../types';
 import { useSubscriptions } from '../../hooks/useSubscriptions';
 import { useMemberships } from '../../hooks/useMemberships';
-import { Edit, Trash2, Search, Plus, Calendar, User, CreditCard, Clock } from 'lucide-react';
+import { Edit, Trash2, Search, Plus, Calendar, User, CreditCard, Clock, DollarSign } from 'lucide-react';
 import SubscriptionForm from './SubscriptionForm';
 import ConfirmationModal from '../../components/UI/ConfirmationModal';
 
@@ -151,6 +151,11 @@ export default function SubscriptionsList() {
                   <CreditCard className="w-4 h-4 text-purple-600" />
                   <span className="text-sm text-gray-600">{getMembershipName(subscription.membership_id)}</span>
                 </div>
+
+                <div className="flex items-center space-x-2">
+                  <DollarSign className="w-4 h-4 text-green-600" />
+                  <span className="font-semibold text-green-600">{subscription.price.toFixed(2)}</span>
+                </div>
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
@@ -171,12 +176,6 @@ export default function SubscriptionsList() {
                     <span className="text-gray-600">Fin:</span>
                     <span className="font-medium">{formatDate(subscription.end_date)}</span>
                   </div>
-                  {membership && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Precio:</span>
-                      <span className="font-medium text-green-600">S/ {membership.price.toFixed(2)}</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

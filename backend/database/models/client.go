@@ -17,5 +17,4 @@ type Client struct {
 
 	Subscriptions []Subscription `gorm:"foreignKey:ClientID"`
 	Sales         []Sale         `gorm:"foreignKey:ClientID"`
-	Attendances   []Attendance   `gorm:"foreignKey:ClientID"`
 }

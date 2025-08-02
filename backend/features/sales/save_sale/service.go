@@ -5,6 +5,7 @@ import (
 	"POS/backend/domain/services"
 	"POS/backend/features/products"
 	"POS/backend/infrastructure"
+	"errors"
 	"strconv"
 )
 
@@ -25,7 +26,7 @@ func (s *SaveSaleService) Save(req SaveSaleRequest) error {
     details := MapDetailsRequestToDomain(req)
     for _, detail := range details {
         if err := s.ProductRepo.ValidateStock(strconv.FormatUint(uint64(detail.ProductID), 10), detail.Quantity); err != nil {
-            return err
+            return errors.New("no se pudo guardar la venta: " + err.Error())
         }
     }
 	// Calcular total
@@ -33,7 +34,7 @@ func (s *SaveSaleService) Save(req SaveSaleRequest) error {
     // Guardar cabecera de venta
     saleID, err := s.SaleRepo.SaveSale(sale)
     if err != nil {
-        return err
+        return errors.New("no se pudo guardar la venta: " + err.Error())
     }
 	// Guardar detalles de la venta
 	detailsModel := MapDetailsToModel(saleID, details)
@@ -44,7 +45,7 @@ func (s *SaveSaleService) Save(req SaveSaleRequest) error {
     // Reducir stock
     for _, detail := range details {
         if err := s.ProductRepo.DecreaseStock(strconv.FormatUint(uint64(detail.ProductID), 10), detail.Quantity); err != nil {
-            return err
+            return errors.New("no se pudo guardar la venta: " + err.Error())
         }
     }
 

@@ -10,6 +10,7 @@ type Subscription struct {
 	ID           uint
 	ClientID     uint
 	MembershipID uint
+	Price        float64
 	StartDate    string
 	EndDate      string
 }
@@ -19,16 +20,16 @@ func (s *Subscription) Validate() error {
 
 	startDate, err := time.Parse(layout, s.StartDate)
 	if err != nil {
-		return errors.New("invalid start date format")
+		return errors.New("formato de fecha de inicio inválido")
 	}
 
 	endDate, err := time.Parse(layout, s.EndDate)
 	if err != nil {
-		return errors.New("invalid end date format")
+		return errors.New("formato de fecha de fin inválido")
 	}
 
 	if startDate.After(endDate) {
-		return errors.New("start date must be before end date")
+		return errors.New("la fecha de inicio debe ser anterior a la fecha de fin")
 	}
 
 	return nil

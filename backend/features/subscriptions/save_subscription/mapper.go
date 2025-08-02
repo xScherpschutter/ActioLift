@@ -2,13 +2,15 @@ package save_subscription
 
 import (
 	"POS/backend/database/models"
+	"POS/backend/domain"
 )
 
-func MapSaveSubscriptionRequestToModel(req SaveSubscriptionRequest) models.Subscription {
+func MapSubscriptionDomainToModel(m domain.Subscription) models.Subscription {
 	return models.Subscription{
-		ClientID:     req.ClientID,
-		MembershipID: req.MembershipID,
-		StartDate:    req.StartDate,
-		EndDate:      req.EndDate,
+			ClientID:     m.ClientID,
+			MembershipID: m.MembershipID,
+			Price:        m.Price,
+			StartDate:    m.StartDate,
+			EndDate:      m.EndDate,
 	}
 }

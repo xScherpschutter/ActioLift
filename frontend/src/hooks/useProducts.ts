@@ -16,9 +16,8 @@ export function useProducts() {
       console.log(data);
       setProducts(data);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al cargar productos';
-      setError(message);
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
     } finally {
       setLoading(false);
     }
@@ -30,8 +29,8 @@ export function useProducts() {
       toast.success('Producto creado exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al crear producto';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -45,8 +44,8 @@ export function useProducts() {
       toast.success('Producto actualizado exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al actualizar producto';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -57,8 +56,8 @@ export function useProducts() {
       toast.success('Producto eliminado exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al eliminar producto';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };

@@ -41,6 +41,7 @@ export interface Subscription {
   id: number;
   client_id: number;
   client_name: string;
+  price: number;
   membership_id: number;
   start_date: string;
   end_date: string;

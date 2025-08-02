@@ -104,7 +104,7 @@ export default function Dashboard() {
         />
         <StatsCard
           title="Ingresos Totales"
-          value={`S/ ${toNumber(stats.total_revenue).toFixed(2)}`}
+          value={`$ ${toNumber(stats.total_revenue).toFixed(2)}`}
           icon={TrendingUp}
           color="orange"
         />
@@ -137,7 +137,7 @@ export default function Dashboard() {
             <div className="flex justify-between items-center py-2">
               <span className="text-gray-600">Promedio por Venta</span>
               <span className="font-semibold text-gray-900">
-                S/ {toNumber(stats.average_sale).toFixed(2)}
+                $ {toNumber(stats.average_sale).toFixed(2)}
               </span>
             </div>
           </div>
@@ -147,12 +147,11 @@ export default function Dashboard() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Actividad reciente</h3>
           <div className="space-y-4">
-            {activities.length === 0 && (
-              <p className="text-gray-500 text-center">No hay actividad reciente</p>
-            )}
-            {activities.map(({ id, entity, created_at, summary }) => {
+            {(!activities || activities.length === 0) && (
+                <p className="text-gray-500 text-center">No hay actividad reciente</p>
+              )}
+              {activities && activities.length > 0 && activities.map(({ id, entity, created_at, summary }) => {
                 const { bgColor, dotColor, label } = getActivityStyle(entity);
-
                 return (
                   <div key={id} className={`flex items-center space-x-3 p-3 rounded-lg ${bgColor}`}>
                     <div className={`w-2 h-2 rounded-full ${dotColor}`}></div>

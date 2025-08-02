@@ -12,13 +12,17 @@ func UpdateMembership (req UpdateMembershipRequest) error {
 
 	result := sqlite.DB.First(&ormMembership, req.ID)
 	if result.Error != nil {
-		return errors.New("membership not found")
+		return errors.New("no se encontró la membresía")
 	}
 	ormMembership.Name = req.Name
 	ormMembership.Description = req.Description
 	ormMembership.Price = req.Price
 	ormMembership.Duration = req.Duration
 	saveResult:= sqlite.DB.Save(&ormMembership)
+
+	if saveResult.Error != nil {
+		return errors.New("no se pudo actualizar la membresía")
+	}
 
 	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
 		Entity:   "Membership",
@@ -27,5 +31,5 @@ func UpdateMembership (req UpdateMembershipRequest) error {
 		Summary:  "Membresía '" + ormMembership.Name + "' actualizada",
 	})
 
-	return saveResult.Error
+	return nil
 }

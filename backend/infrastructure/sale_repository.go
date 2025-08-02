@@ -56,28 +56,6 @@ func (r *SaleRepository) UpdateSale(sale *models.Sale) error {
 	return tx.Commit().Error
 }
 
-func (r *SaleRepository) UpdateSaleFromRequest(saleID uint, clientID uint) error {
-	tx := r.db.Begin()
-
-	if err := tx.Model(&models.Sale{}).Where("id = ?", saleID).Update("client_id", clientID).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-
-	return tx.Commit().Error
-}
-
-func (r *SaleRepository) UpdateSaleDetail(detail *models.SalesDetail) error {
-	tx := r.db.Begin()
-
-	if err := tx.Save(detail).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-
-	return tx.Commit().Error
-}
-
 func (r *SaleRepository) UpdateSaleDetails(details []models.SalesDetail) error {
 	tx := r.db.Begin()
 

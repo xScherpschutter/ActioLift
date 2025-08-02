@@ -333,6 +333,7 @@ export namespace get_subscriptions {
 	    client_id: number;
 	    client_name: string;
 	    membership_id: number;
+	    price: number;
 	    start_date: string;
 	    end_date: string;
 	
@@ -346,6 +347,7 @@ export namespace get_subscriptions {
 	        this.client_id = source["client_id"];
 	        this.client_name = source["client_name"];
 	        this.membership_id = source["membership_id"];
+	        this.price = source["price"];
 	        this.start_date = source["start_date"];
 	        this.end_date = source["end_date"];
 	    }

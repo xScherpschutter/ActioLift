@@ -16,9 +16,8 @@ export function useClients() {
       console.log(result);
       setClients(result);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al cargar clientes';
-      setError(message);
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
     } finally {
       setLoading(false);
     }
@@ -29,8 +28,8 @@ export function useClients() {
       const data = await GetClientByID({id: id});
       return data || null;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al cargar cliente';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return null;
     }
   };
@@ -41,8 +40,8 @@ export function useClients() {
       toast.success('Cliente creado exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al crear cliente';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -53,8 +52,8 @@ export function useClients() {
       toast.success('Cliente actualizado exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al actualizar cliente';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -65,8 +64,8 @@ export function useClients() {
       toast.success('Cliente eliminado exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al eliminar cliente';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };

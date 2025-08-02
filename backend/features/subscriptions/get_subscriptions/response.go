@@ -5,6 +5,7 @@ type SubscriptionResponse struct {
 	ClientID     uint   `json:"client_id"`
 	ClientName   string `json:"client_name"`
 	MembershipID uint   `json:"membership_id"`
+	Price        float64 `json:"price"`
 	StartDate    string `json:"start_date"`
 	EndDate      string `json:"end_date"`
 }

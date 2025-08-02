@@ -1,5 +1,7 @@
 package get_activities
 
+import "errors"
+
 type GetActivitiesService struct {
 	repository ActivityPort
 }
@@ -11,8 +13,7 @@ func NewGetActivitiesService(repository ActivityPort) *GetActivitiesService {
 func (s *GetActivitiesService) GetActivities() ([]ActivityResponse, error) {
 	activities, err := s.repository.GetActivities()
 	if err != nil {
-		return nil, err
+		return nil, errors.New("no se pudo obtener los últimos registros")
 	}
 	return MapActivitiesToResponse(activities), nil
 }
-

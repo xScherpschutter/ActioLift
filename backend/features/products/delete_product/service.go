@@ -10,14 +10,16 @@ import (
 
 func DeleteProduct(req DeleteProductRequest) error {
 	var product models.Product
-	if err := sqlite.DB.First(&product, req.ID).Error; err != nil {
-		return errors.New("product not found")
+	result := sqlite.DB.First(&product, req.ID)
+	
+	if result.Error != nil {
+		return errors.New("no se encontró el producto")
 	}
 
-	result := sqlite.DB.Delete(&product)
+	result = sqlite.DB.Delete(&product, req.ID)
 
 	if result.RowsAffected == 0 {
-		return errors.New("product not found")
+		return errors.New("no se encontró el producto")
 	}
 
 	infrastructure.NewActivityRepository().CreateActivity(models.ActivityLog{
@@ -27,5 +29,5 @@ func DeleteProduct(req DeleteProductRequest) error {
 		Summary:  "Producto " + product.Name + " (#" + strconv.FormatUint(uint64(req.ID), 10) + ") eliminado",
 	})
 
-	return result.Error
+	return nil
 }

@@ -3,6 +3,7 @@ package get_subscriptions
 import (
 	"POS/backend/database/models"
 	"POS/backend/database/sqlite"
+	"errors"
 )
 
 func GetAllSubscriptions() ([]SubscriptionResponse, error) {
@@ -10,13 +11,13 @@ func GetAllSubscriptions() ([]SubscriptionResponse, error) {
 
 	result := sqlite.DB.Model(&models.Subscription{}).
 		Select(`subscriptions.id, subscriptions.client_id, subscriptions.membership_id,
-				subscriptions.start_date, subscriptions.end_date,
-				clients.first_name || ' ' || clients.last_name as client_name`).
-		Joins("join clients on clients.id = subscriptions.client_id").
+				subscriptions.price, subscriptions.start_date, subscriptions.end_date,
+				COALESCE(clients.first_name || ' ' || clients.last_name, 'Cliente no encontrado') as client_name`).
+		Joins("left join clients on clients.id = subscriptions.client_id").
 		Scan(&subs)
 
 	if result.Error != nil {
-		return nil, result.Error
+		return nil, errors.New("no se pudo obtener las suscripciones")
 	}
 
 	if len(subs) == 0 {

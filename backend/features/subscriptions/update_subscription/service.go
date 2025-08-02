@@ -10,9 +10,16 @@ import (
 )
 
 func UpdateSubscription(req UpdateSubscriptionRequest) error {
+	var membership models.Membership
+
+	if err := sqlite.DB.Find(&membership, req.MembershipID).Error; err != nil {
+		return errors.New("no se pudo encontrar la membresía")
+	}
+
 	subscription := domain.Subscription {
 		ID: req.ID,
 		MembershipID: req.MembershipID,
+		Price: membership.Price,
 		ClientID: req.ClientID,
 		StartDate: req.StartDate,
 		EndDate: req.EndDate,
@@ -27,11 +34,12 @@ func UpdateSubscription(req UpdateSubscriptionRequest) error {
 	result := sqlite.DB.Find(&ormSubscription, req.ID)
 
 	if result.Error != nil {
-		return errors.New("subscription not found")
+		return errors.New("no se pudo encontrar la suscripción")
 	}
 	
 	ormSubscription.MembershipID = subscription.MembershipID
 	ormSubscription.ClientID = subscription.ClientID
+	ormSubscription.Price = subscription.Price
 	ormSubscription.StartDate = subscription.StartDate
 	ormSubscription.EndDate = subscription.EndDate
 	saveResult := sqlite.DB.Save(&ormSubscription)

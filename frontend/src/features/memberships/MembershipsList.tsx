@@ -119,7 +119,7 @@ export default function MembershipsList() {
               <div className="flex items-center space-x-2">
                 <DollarSign className="w-4 h-4 text-green-600" />
                 <span className="text-sm text-gray-600">Precio:</span>
-                <span className="font-semibold text-green-600">S/ {membership.price.toFixed(2)}</span>
+                <span className="font-semibold text-green-600">{membership.price.toFixed(2)}</span>
               </div>
               
               <div className="flex items-center space-x-2">

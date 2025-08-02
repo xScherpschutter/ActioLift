@@ -15,9 +15,8 @@ export function useMemberships() {
       const data = await GetAllMemberships();
       setMemberships(data);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al cargar membresías';
-      setError(message);
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
     } finally {
       setLoading(false);
     }
@@ -29,8 +28,8 @@ export function useMemberships() {
       toast.success('Membresía creada exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al crear membresía';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -44,8 +43,8 @@ export function useMemberships() {
       toast.success('Membresía actualizada exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al actualizar membresía';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -56,8 +55,8 @@ export function useMemberships() {
       toast.success('Membresía eliminada exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al eliminar membresía';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };

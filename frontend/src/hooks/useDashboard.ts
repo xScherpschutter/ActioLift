@@ -16,9 +16,8 @@ export function useDashboard() {
       const data = await GetDashboard();
       setStats(data);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al cargar estadísticas';
-      setError(message);
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
     } finally {
       setLoading(false);
     }
@@ -32,9 +31,8 @@ export function useDashboard() {
       setActivities(data);
       console.log(data);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al cargar últimos registros';
-      setError(message);
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
     } finally {
       setLoading(false);
     }

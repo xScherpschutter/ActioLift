@@ -114,7 +114,7 @@ export default function ProductsList() {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    S/ {product.price.toFixed(2)}
+                    $ {product.price.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {product.stock} unidades

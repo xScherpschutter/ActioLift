@@ -16,10 +16,8 @@ export function useSales() {
       console.log(data);
       setSales(data);
     } catch (err) {
-      console.error(err);
-      const message = err instanceof Error ? err.message : 'Error al cargar ventas';
-      setError(message);
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
     } finally {
       setLoading(false);
     }
@@ -31,8 +29,8 @@ export function useSales() {
       toast.success('Venta registrada exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al registrar venta';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -48,8 +46,8 @@ export function useSales() {
       toast.success('Venta actualizada exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al actualizar venta';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -60,8 +58,8 @@ export function useSales() {
       toast.success('Venta eliminada exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al eliminar venta';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };

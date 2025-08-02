@@ -125,7 +125,7 @@ export default function SalesList() {
                     <DollarSign className="w-5 h-5 text-green-600" />
                     <span className="text-sm text-gray-600">Total:</span>
                   </div>
-                  <span className="text-xl font-bold text-green-600">S/ {sale.total.toFixed(2)}</span>
+                  <span className="text-xl font-bold text-green-600">$ {sale.total.toFixed(2)}</span>
                 </div>
               </div>
             </div>

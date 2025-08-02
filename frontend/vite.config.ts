@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 
 export default defineConfig({
+  base: './',
   plugins: [preact()],
   resolve: {
     alias: {
@@ -9,7 +10,7 @@ export default defineConfig({
       'react-dom': 'preact/compat'
     }
   },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
+  // optimizeDeps: {
+  //   exclude: ['lucide-react'],
+  // },
 });

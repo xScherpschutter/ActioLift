@@ -16,9 +16,8 @@ export function useSubscriptions() {
       console.log(data);
       setSubscriptions(data);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al cargar suscripciones';
-      setError(message);
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
     } finally {
       setLoading(false);
     }
@@ -30,9 +29,8 @@ export function useSubscriptions() {
       toast.success('Suscripción creada exitosamente');
       return true;
     } catch (err) {
-      console.log(err)
-      const message = err instanceof Error ? err.message : 'Error al crear suscripción';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -49,8 +47,8 @@ export function useSubscriptions() {
       toast.success('Suscripción actualizada exitosamente');
       return true;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error al actualizar suscripción';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
@@ -61,9 +59,8 @@ export function useSubscriptions() {
       toast.success('Suscripción eliminada exitosamente');
       return true;
     } catch (err) {
-      console.log(err)
-      const message = err instanceof Error ? err.message : 'Error al eliminar suscripción';
-      toast.error(message);
+      setError(err as string);
+      toast.error(err);
       return false;
     }
   };
