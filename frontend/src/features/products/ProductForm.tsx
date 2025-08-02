@@ -99,7 +99,7 @@ export default function ProductForm({ product, onClose, onSuccess }: ProductForm
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Precio (S/)
+              Precio ($)
             </label>
             <input
               type="number"

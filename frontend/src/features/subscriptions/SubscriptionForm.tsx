@@ -22,7 +22,7 @@ export default function SubscriptionForm({ subscription, onClose, onSuccess }: S
   const [formData, setFormData] = useState<SubscriptionFormType>({
     client_id: subscription?.client_id || 0,
     membership_id: subscription?.membership_id || 0,
-    start_date: subscription?.start_date || new Date().toISOString().split('T')[0],
+    start_date: subscription?.start_date || new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0],
     end_date: subscription?.end_date || '',
   });
 
@@ -136,7 +136,7 @@ export default function SubscriptionForm({ subscription, onClose, onSuccess }: S
               <option value={0}>Seleccionar membresía</option>
               {memberships.map((membership) => (
                 <option key={membership.id} value={membership.id}>
-                  {membership.name} - S/ {membership.price.toFixed(2)} ({membership.duration} días)
+                  {membership.name} - $ {membership.price.toFixed(2)} ({membership.duration} días)
                 </option>
               ))}
             </select>

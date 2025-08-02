@@ -217,7 +217,7 @@ export default function SaleForm({ sale, onClose, onSuccess }: SaleFormProps) {
 
                       <div className="mt-2 text-right">
                         <span className="text-sm text-gray-600">Subtotal: </span>
-                        <span className="font-semibold">S/ {(detail.quantity * detail.price).toFixed(2)}</span>
+                        <span className="font-semibold">$ {(detail.quantity * detail.price).toFixed(2)}</span>
                       </div>
                     </div>
                   );
@@ -234,7 +234,7 @@ export default function SaleForm({ sale, onClose, onSuccess }: SaleFormProps) {
             <div className="bg-blue-50 p-4 rounded-lg">
               <div className="flex justify-between items-center">
                 <span className="text-lg font-medium text-blue-900">Total de la Venta:</span>
-                <span className="text-2xl font-bold text-blue-900">S/ {calculateTotal().toFixed(2)}</span>
+                <span className="text-2xl font-bold text-blue-900">$ {calculateTotal().toFixed(2)}</span>
               </div>
             </div>
           )}
