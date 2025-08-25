@@ -3,7 +3,7 @@ name: Release (Windows)
 on:
   push:
     tags:
-      - 'v*.*.*'   # Ej: v1.0.0
+      - 'v1.0.0'
 
 jobs:
   build:
