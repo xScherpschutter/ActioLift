@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-
 	"POS/backend/features/clients/delete_client"
 	"POS/backend/features/clients/get_client_by_id"
 	"POS/backend/features/clients/get_clients"
