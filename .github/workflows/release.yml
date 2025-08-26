@@ -40,12 +40,6 @@ jobs:
       - name: Build Wails app (Windows)
         run: wails build -platform windows/amd64
 
-      - name: Rename binary with version
-        run: |
-          $exeName = "POSApp.exe"
-          $newName = "POS_v${{ github.ref_name }}.exe"
-          Rename-Item "build\bin\$exeName" $newName
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
