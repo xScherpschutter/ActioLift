@@ -21,7 +21,7 @@ ActioLift es un sistema integral de **Punto de Venta (POS)** especializado para 
 ### Backend (Go)
 - **Framework**: [Wails v2](https://wails.io/) - Framework para aplicaciones de escritorio
 - **Base de Datos**: SQLite con [GORM](https://gorm.io/) como ORM
-- **Arquitectura**: Clean Architecture con separación de capas (Domain, Infrastructure, Features)
+- **Arquitectura**: Vertical Slice Architecture (Domain, Infrastructure, Features)
 - **Patrones**: Repository Pattern, Handler Pattern
 
 ### Frontend (Preact + TypeScript)
@@ -115,7 +115,7 @@ sudo dnf install gcc gcc-c++
 ### 1. Clonar el Repositorio
 ```bash
 git clone <url-del-repositorio>
-cd POS
+cd ActioLift
 ```
 
 ### 2. Verificar Dependencias del Sistema
