@@ -1,4 +1,4 @@
-# ActioLift - Sistema POS para Gimnasio
+# ActioLift - POS (Point of Sale) para Gimnasio
 
 ![ActioLift Logo](build/appicon.png)
 
