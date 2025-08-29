@@ -54,10 +54,6 @@ export function GetDashboard() {
   return window['go']['main']['App']['GetDashboard']();
 }
 
-export function Greet(arg1) {
-  return window['go']['main']['App']['Greet'](arg1);
-}
-
 export function SaveClient(arg1) {
   return window['go']['main']['App']['SaveClient'](arg1);
 }

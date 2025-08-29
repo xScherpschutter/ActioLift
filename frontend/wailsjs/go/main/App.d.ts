@@ -50,8 +50,6 @@ export function GetClientByID(arg1:get_client_by_id.GetClientByIDQuery):Promise<
 
 export function GetDashboard():Promise<get_dashboard.DashboardResponse>;
 
-export function Greet(arg1:string):Promise<string>;
-
 export function SaveClient(arg1:save_client.SaveClientRequest):Promise<void>;
 
 export function SaveMembership(arg1:save_membership.SaveMembershipRequest):Promise<void>;

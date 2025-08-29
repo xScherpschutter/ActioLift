@@ -23,14 +23,41 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
   };
 
   return (
-    <div className={`${isCollapsed ? 'w-16' : 'w-64'} bg-gradient-to-b from-gray-900 to-gray-800 text-white flex flex-col transition-all duration-300 ease-in-out relative shadow-xl`}>
-      {/* Header */}
-      <div className="p-4 border-b border-gray-700">
+    <div className={`${isCollapsed ? 'w-16' : 'w-64'} relative z-50 overflow-hidden flex flex-col transition-all duration-300 ease-in-out shadow-2xl`}>
+      {/* Animated background matching header */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 opacity-95"></div>
+      
+      {/* Liquid glass overlay with animated blobs */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 -left-10 w-32 h-32 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div className="absolute top-40 -right-8 w-24 h-24 bg-gray-600 rounded-full mix-blend-multiply filter blur-xl opacity-15 animate-blob animation-delay-3000"></div>
+        <div className="absolute bottom-20 left-4 w-40 h-40 bg-blue-700 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-1000"></div>
+      </div>
+      
+      {/* Toggle Button with glassmorphism - Outside main container for proper z-index */}
+          <button
+            onClick={toggleSidebar}
+            className={`fixed top-20 w-6 h-6 backdrop-blur-xl bg-blue-600/80 hover:bg-blue-600 
+                        border border-white/20 rounded-full flex items-center justify-center shadow-xl 
+                        transition-all duration-300 hover:scale-110 z-[9999]
+                        ${isCollapsed ? 'left-16' : 'left-64'}`}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="w-3 h-3 text-white" />
+            ) : (
+              <ChevronLeft className="w-3 h-3 text-white" />
+            )}
+          </button>
+
+      {/* Main sidebar content */}
+      <div className="relative z-10 backdrop-blur-xl bg-white/5 border-r border-white/10 flex flex-col h-full">
+        {/* Header */}
+      <div className="p-4 border-b border-white/10">
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <div className="flex items-center space-x-3 opacity-100 transition-opacity duration-300">
-              {/* Icon */}
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+              {/* Icon with glassmorphism */}
+              <div className="w-10 h-10 backdrop-blur-xl bg-white/20 rounded-2xl flex items-center justify-center shadow-xl border border-white/20">
                 <img 
                   src="/favicon.png" 
                   alt="Icono ActioLift" 
@@ -38,31 +65,19 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
                 />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">ActioLift</h1>
-                <p className="text-xs text-gray-300">Gestión de gimnasio</p>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-white via-gray-100 to-blue-200 bg-clip-text text-transparent drop-shadow-lg">ActioLift</h1>
+                <p className="text-xs text-white/80 font-medium backdrop-blur-sm bg-white/10 px-2 py-0.5 rounded-full border border-white/20 inline-block mt-1">Gestión de gimnasio</p>
               </div>
             </div>
           )}
           
           {isCollapsed && (
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg mx-auto">
+            <div className="w-10 h-10 backdrop-blur-xl bg-blue-600/80 hover:bg-blue-600 rounded-2xl flex items-center justify-center shadow-xl mx-auto border border-white/20 transition-all duration-300">
               <Dumbbell className="w-6 h-6 text-white" />
             </div>
           )}
         </div>
       </div>
-
-      {/* Toggle Button */}
-      <button
-        onClick={toggleSidebar}
-        className="absolute -right-3 top-20 w-6 h-6 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center shadow-lg transition-colors duration-200 z-10"
-      >
-        {isCollapsed ? (
-          <ChevronRight className="w-3 h-3 text-white" />
-        ) : (
-          <ChevronLeft className="w-3 h-3 text-white" />
-        )}
-      </button>
 
       {/* Navigation */}
       <nav className="flex-1 p-4">
@@ -78,10 +93,10 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
                   console.log('➡️ Cambiando sección a:', item.id);
                   onSectionChange(item.id);
                   }}
-                  className={`w-full group relative flex items-center px-3 py-3 rounded-xl transition-all duration-200 ${
+                  className={`w-full group relative flex items-center px-3 py-3 rounded-2xl backdrop-blur-xl border transition-all duration-300 ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-lg transform scale-105'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white hover:transform hover:scale-105'
+                      ? 'bg-blue-600/90 hover:bg-blue-600 text-white shadow-2xl shadow-blue-500/25 transform scale-105 border-white/30'
+                      : 'text-white/80 hover:text-white hover:bg-white/15 bg-white/5 hover:transform hover:scale-105 border-white/10 hover:border-white/20 hover:shadow-xl'
                   }`}
                   title={isCollapsed ? item.label : undefined}
                 >
@@ -93,11 +108,11 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
                     </span>
                   )}
 
-                  {/* Tooltip for collapsed state */}
+                  {/* Tooltip for collapsed state with glassmorphism */}
                   {isCollapsed && (
-                    <div className="absolute left-full ml-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                    <div className="absolute left-full ml-2 px-3 py-2 backdrop-blur-xl bg-gray-900/90 border border-white/20 text-white text-sm rounded-2xl shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap z-50">
                       {item.label}
-                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45"></div>
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 border-l border-t border-white/20 rotate-45"></div>
                     </div>
                   )}
 
@@ -108,21 +123,67 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
         </ul>
       </nav>
 
-      {/* Footer */}
-      <div className="p-4 border-t border-gray-700">
+      {/* Footer with glassmorphism */}
+      <div className="p-4 border-t border-white/10">
         {!isCollapsed ? (
           <div className="transition-opacity duration-300 opacity-100">
-            <div className="text-xs text-gray-400 space-y-1">
-              <p className="font-medium">Versión 1.0.0</p>
-              <p>© 2025 ActioMeta</p>
+            <div className="backdrop-blur-sm bg-white/5 rounded-2xl p-3 border border-white/10">
+              <div className="text-xs text-white/70 space-y-1 text-center">
+                <p className="font-medium text-white/90">Versión 1.0.2</p>
+                <p className="text-white/60">© 2025 ActioMeta</p>
+              </div>
             </div>
           </div>
         ) : (
-          <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center mx-auto">
-            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+          <div className="w-8 h-8 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center mx-auto transition-all duration-300 hover:bg-white/20">
+            <div className="w-2 h-2 bg-white/60 rounded-full"></div>
           </div>
         )}
       </div>
+      </div>
+      
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes blob {
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+        }
+        
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        
+        .animation-delay-1000 {
+          animation-delay: 1s;
+        }
+        
+        .animation-delay-3000 {
+          animation-delay: 3s;
+        }
+        
+        .animate-spin-slow {
+          animation: spin 3s linear infinite;
+        }
+        
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </div>
   );
 }

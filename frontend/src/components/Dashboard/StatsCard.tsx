@@ -8,26 +8,34 @@ interface StatsCardProps {
 }
 
 const colorClasses = {
-  blue: 'bg-blue-100 text-blue-600 ring-blue-200',
-  green: 'bg-green-100 text-green-600 ring-green-200',
-  purple: 'bg-purple-100 text-purple-600 ring-purple-200',
-  orange: 'bg-orange-100 text-orange-600 ring-orange-200',
-  red: 'bg-red-100 text-red-600 ring-red-200',
-};
+    blue: 'from-blue-500 to-blue-600 shadow-blue-200',
+    green: 'from-green-500 to-green-600 shadow-green-200',
+    purple: 'from-purple-500 to-purple-600 shadow-purple-200',
+    orange: 'from-orange-500 to-orange-600 shadow-orange-200',
+    red: 'from-red-500 to-red-600 shadow-red-200',
+  };
+
+const bgPatterns = {
+    blue: 'bg-blue-50',
+    green: 'bg-green-50',
+    purple: 'bg-purple-50',
+    orange: 'bg-orange-50',
+    red: 'bg-red-50',
+  };
+
 
 export default function StatsCard({ title, value, icon: Icon, color }: StatsCardProps) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex items-center gap-4">
-        <div
-          className={`w-14 h-14 rounded-xl flex items-center justify-center ring-2 ${colorClasses[color]} bg-opacity-30`}
-        >
-          <Icon className="w-6 h-6" />
+    <div className="relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+      <div className={`absolute inset-0 ${bgPatterns[color as keyof typeof bgPatterns]} opacity-30`}></div>
+      <div className="relative p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className={`p-3 bg-gradient-to-br ${colorClasses[color as keyof typeof colorClasses]} rounded-xl shadow-lg`}>
+            <Icon className="w-6 h-6 text-white" />
+          </div>
         </div>
-        <div className="flex flex-col justify-center">
-          <p className="text-sm font-medium text-gray-500">{title}</p>
-          <p className="text-xl font-semibold text-gray-800">{value}</p>
-        </div>
+        <h3 className="text-sm font-medium text-gray-600 mb-1">{title}</h3>
+        <p className="text-2xl font-bold text-gray-900">{value}</p>
       </div>
     </div>
   );
