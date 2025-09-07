@@ -75,6 +75,7 @@ export interface DashboardStats {
   sold_products: number;
   sold_memberships: number;
   average_sale: number;
+  today_sales: number;
 }
 
 export interface Activity {

@@ -1,7 +1,7 @@
 import { Users, CreditCard, Calendar, Package, TrendingUp, Activity, Clock, ShoppingCart, Award, ArrowUp, ArrowDown } from 'lucide-react';
 import StatsCard from './StatsCard';
 import BusinessDistributionChart from './BusinessDistributionChart';
-import AverageSaleGauge from './AverageSaleGauge';
+import DailySalesGauge from './DailySalesGauge';
 import { useDashboard } from '../../hooks/useDashboard';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -143,7 +143,7 @@ export default function Dashboard() {
       {/* Nuevos Gráficos Analíticos */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <BusinessDistributionChart stats={stats} />
-        <AverageSaleGauge stats={stats} target={150} />
+        <DailySalesGauge stats={stats} target={150} />
       </div>
 
       {/* Resumen y Actividad con diseño mejorado */}

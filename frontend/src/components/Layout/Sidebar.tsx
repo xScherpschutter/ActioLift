@@ -129,7 +129,7 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
           <div className="transition-opacity duration-300 opacity-100">
             <div className="backdrop-blur-sm bg-white/5 rounded-2xl p-3 border border-white/10">
               <div className="text-xs text-white/70 space-y-1 text-center">
-                <p className="font-medium text-white/90">Versión 1.0.2</p>
+                <p className="font-medium text-white/90">Versión 1.0.3</p>
                 <p className="text-white/60">© 2025 ActioMeta</p>
               </div>
             </div>

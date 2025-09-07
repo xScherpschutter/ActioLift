@@ -74,7 +74,7 @@ func GetDashboard() (*DashboardResponse, error) {
 			SELECT m.price as amount
 			FROM subscriptions s
 			JOIN memberships m ON s.membership_id = m.id
-			WHERE s.start_date >= ?
+			WHERE s.created_at >= ?
 		)
 	`
 	if err := sqlite.DB.Raw(q, time.Now().AddDate(0, 0, -30), time.Now().AddDate(0, 0, -30)).
@@ -82,6 +82,26 @@ func GetDashboard() (*DashboardResponse, error) {
 		return nil, err
 	}
 
+	// Today Sales
+
+	todayStart := time.Now().Truncate(24 * time.Hour)
+	todayEnd := todayStart.Add(24 * time.Hour)
+
+	todayQuery := `
+		SELECT COALESCE(SUM(amount), 0) as today_sales FROM (
+			SELECT total as amount FROM sales 
+			WHERE created_at >= ? AND created_at < ?
+			UNION ALL
+			SELECT m.price as amount
+			FROM subscriptions s
+			JOIN memberships m ON s.membership_id = m.id
+			WHERE s.created_at >= ? AND s.created_at < ?
+		)
+	`
+	if err := sqlite.DB.Raw(todayQuery, todayStart, todayEnd, todayStart, todayEnd).
+		Scan(&dashboard.TodaySales).Error; err != nil {
+		return nil, err
+	}
 
 	return &dashboard, nil
 }

@@ -190,6 +190,7 @@ export namespace get_dashboard {
 	    sold_products: number;
 	    sold_memberships: number;
 	    average_sale: number;
+	    today_sales: number;
 	
 	    static createFrom(source: any = {}) {
 	        return new DashboardResponse(source);
@@ -206,6 +207,7 @@ export namespace get_dashboard {
 	        this.sold_products = source["sold_products"];
 	        this.sold_memberships = source["sold_memberships"];
 	        this.average_sale = source["average_sale"];
+	        this.today_sales = source["today_sales"];
 	    }
 	}
 

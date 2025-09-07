@@ -10,4 +10,5 @@ type DashboardResponse struct {
 	SoldProducts  int64 `json:"sold_products"`
 	SoldMemberships int64 `json:"sold_memberships"`
 	AverageSale   float64 `json:"average_sale"`
+	TodaySales		float64 `json:"today_sales"`
 }

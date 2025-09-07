@@ -2,13 +2,13 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { Target, TrendingUp, ArrowUp, ArrowDown } from 'lucide-react';
 import { DashboardStats } from '../../types';
 
-interface AverageSaleGaugeProps {
+interface DailySalesGaugeProps {
   stats: DashboardStats;
-  target?: number; // Meta configurable
+  target?: number; // Meta diaria configurable
 }
 
-export default function AverageSaleGauge({ stats, target = 100 }: AverageSaleGaugeProps) {
-  const currentValue = Number(stats.average_sale) || 0;
+export default function DailySalesGauge({ stats, target = 150 }: DailySalesGaugeProps) {
+  const currentValue = Number(stats.today_sales) || 0;
   const maxValue = Math.max(target, currentValue) * 1.2; // 20% more than the higher value
   
   // Calculate percentage for the gauge
@@ -24,7 +24,7 @@ export default function AverageSaleGauge({ stats, target = 100 }: AverageSaleGau
   
   const color = getColor();
   const isAboveTarget = currentValue >= target;
-  const performanceText = isAboveTarget ? 'Por encima del objetivo' : 'Por debajo del objetivo';
+  const performanceText = isAboveTarget ? 'Meta alcanzada' : 'Meta pendiente';
   
   // Data for the gauge (semicircle)
   const data = [
@@ -44,9 +44,9 @@ export default function AverageSaleGauge({ stats, target = 100 }: AverageSaleGau
           <div className="p-2 bg-white/20 rounded-lg">
             <Target className="w-5 h-5" />
           </div>
-          Ticket Promedio
+          Meta Diaria de Ventas
         </h3>
-        <p className="text-gray-300 text-sm mt-1">Desempeño vs objetivo</p>
+        <p className="text-gray-300 text-sm mt-1">Progreso hacia la meta diaria</p>
       </div>
 
       {/* Gauge Chart */}
@@ -93,7 +93,7 @@ export default function AverageSaleGauge({ stats, target = 100 }: AverageSaleGau
               <p className="text-3xl font-bold text-gray-800">
                 ${currentValue.toFixed(2)}
               </p>
-              <p className="text-sm text-gray-600 mt-1 font-medium">Promedio actual</p>
+              <p className="text-sm text-gray-600 mt-1 font-medium">Ventas de hoy</p>
             </div>
           </div>
           
@@ -119,7 +119,7 @@ export default function AverageSaleGauge({ stats, target = 100 }: AverageSaleGau
                 {percentage.toFixed(1)}%
               </span>
             </div>
-            <p className="text-xs text-gray-500">vs Objetivo</p>
+            <p className="text-xs text-gray-500">vs Meta</p>
           </div>
           
           <div className="text-center">
@@ -130,7 +130,7 @@ export default function AverageSaleGauge({ stats, target = 100 }: AverageSaleGau
               </span>
             </div>
             <p className="text-xs text-gray-500">
-              {isAboveTarget ? 'Por encima' : 'Faltante'}
+              {isAboveTarget ? 'Excedente' : 'Faltante'}
             </p>
           </div>
         </div>
