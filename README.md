@@ -1,6 +1,7 @@
-# ActioLift - POS (Point of Sale) para Gimnasio
-
-![ActioLift Logo](build/appicon.png)
+<h1>
+  <img src="build/appicon.png" alt="ActioLift Logo" width="32" height="32" style="vertical-align: middle;">
+  ActioLift - POS (Point of Sale) para Gimnasio
+</h1>
 
 ## 📋 Descripción del Proyecto
 
@@ -284,6 +285,10 @@ Las contribuciones son bienvenidas. Por favor:
 3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abrir un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
